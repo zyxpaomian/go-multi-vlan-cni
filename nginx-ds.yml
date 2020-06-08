@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment 
+metadata:
+  name: nginx-ds
+  labels:
+    addonmanager.kubernetes.io/mode: Reconcile
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: nginx-ds
+      annotations:
+        ipv4list: "192.168.159.146/24,192.168.159.147/24"
+        ipgroupname: "nginx-ds" 
+    spec:
+      containers:
+      - name: my-nginx
+        image: daocloud.io/library/nginx:1.13.0-alpine
+        ports:
+        - containerPort: 80
